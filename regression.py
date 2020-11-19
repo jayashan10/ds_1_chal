@@ -18,6 +18,17 @@ def predict_price(area) -> float:
     response = requests.get(TRAIN_DATA_URL)
     # YOUR IMPLEMENTATION HERE
     ...
+    df=pandas.read_csv(TRAIN_DATA_URL)
+    X=df[:,:-1]
+    Y=df[:,-1]
+    X_mean=X.mean()
+    Y_mean=Y.mean()
+    beta1=(df.dot(X-X_mean,Y-Y_mean))/df.sum((X-X_mean)**2))
+    
+    beta0=Y_mean-X_mean*beta1
+    p_prices=beta0+beta1*area
+    
+    return p_prices
 
 
 if __name__ == "__main__":
